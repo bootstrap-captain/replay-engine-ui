@@ -1,9 +1,11 @@
 import React from 'react';
-import {Hello} from "./component/Hello/Hello";
+import {ServiceRouter} from "./pages/ServiceRouter";
 
 function App() {
     return (
-        <Hello/>
+        <div>
+            <ServiceRouter/>
+        </div>
     )
 }
 
