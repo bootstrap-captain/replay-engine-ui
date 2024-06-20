@@ -12,17 +12,18 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import {useHistory} from "react-router-dom";
+import {menus, RouterMenu} from "../../config/menuConfig";
+import {useNavigate} from "react-router-dom";
 
-const pages = ['HOME', 'CART', 'ADMIN', 'APPROVE'];
+const pages = ['Products', 'Pricing', 'Blog'];
 const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
-export function Header() {
+/*从后台获取*/
+const navMenu: RouterMenu[] = menus;
+
+export default function Header() {
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-
-    let history = useHistory();
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElNav(event.currentTarget);
@@ -31,7 +32,6 @@ export function Header() {
         setAnchorElUser(event.currentTarget);
     };
 
-    /*点击页面按钮，进行路由跳转*/
     const handleCloseNavMenu = () => {
         setAnchorElNav(null);
     };
@@ -40,11 +40,12 @@ export function Header() {
         setAnchorElUser(null);
     };
 
-    /*点击菜单上的按钮，进行路由跳转*/
-    const handleClickNavButton = (key: string) => {
+    let navigate = useNavigate();
+
+    /*点击菜单，跳转到指定的路由*/
+    const handleClickMenu = (path: string) => {
         return () => {
-            console.log(history);
-            history.push(`/${key.toLowerCase()}`)
+            navigate(path);
         }
     }
 
@@ -52,23 +53,10 @@ export function Header() {
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-                    <AdbIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'none', md: 'flex'},
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        Replay Service
+
+                    {/*标题*/}
+                    <Typography>
+                        Replay Engine Service
                     </Typography>
 
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
@@ -82,6 +70,7 @@ export function Header() {
                         >
                             <MenuIcon/>
                         </IconButton>
+
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -106,6 +95,7 @@ export function Header() {
                                 </MenuItem>
                             ))}
                         </Menu>
+
                     </Box>
                     <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
                     <Typography
@@ -127,18 +117,19 @@ export function Header() {
                         LOGO
                     </Typography>
 
-                    {/*页面菜单button*/}
+                    {/*菜单部分开始*/}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
+                        {menus.map((menu) => (
                             <Button
-                                key={page}
-                                onClick={handleClickNavButton(page)}
+                                key={menu.label}
+                                onClick={handleClickMenu(menu.path)}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {page}
+                                {menu.label}
                             </Button>
                         ))}
                     </Box>
+                    {/*菜单部分结束*/}
 
                     <Box sx={{flexGrow: 0}}>
                         <Tooltip title="Open settings">

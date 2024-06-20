@@ -1,10 +1,10 @@
 import React from 'react';
-import {ServiceRouter} from "./pages/ServiceRouter";
+import Main from "./pages/Main";
 
 function App() {
     return (
         <div>
-            <ServiceRouter/>
+            <Main/>
         </div>
     )
 }
