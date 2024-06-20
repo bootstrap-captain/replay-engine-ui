@@ -6,8 +6,14 @@ import TextField from "@mui/material/TextField";
 import {User, user_type} from "./User";
 import MenuItem from "@mui/material/MenuItem";
 import AddIcon from '@mui/icons-material/Add';
+import {create} from "../../api/User";
 
-export default function CreateUser() {
+interface CreateProps {
+    writeOperation: () => void;
+}
+
+export default function CreateUser(props: CreateProps) {
+    const {writeOperation} = props;
 
     const [user, setUser] = React.useState<User>({
         username: '',
@@ -26,9 +32,13 @@ export default function CreateUser() {
         }
     }
 
-    function handleSubmit() {
-        console.log(user);
-        // 发送请求到后端创建数据
+
+    const handleSubmit = () => {
+        setOpen(false);
+        create(user).then((value) => {
+            console.log("response:",value);
+            writeOperation();
+        })
     }
 
 

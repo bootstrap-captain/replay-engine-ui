@@ -6,23 +6,23 @@ import React, {BaseSyntheticEvent, ChangeEvent, Fragment} from "react";
 import Button from "@mui/material/Button";
 
 interface SearchProps {
-    callQueryApi: () => void;
+    saveSearchCondition: (searchCondition:User) => ()=>void;
 }
 
 export default function Search(props: SearchProps) {
 
-    const {callQueryApi} = props;
+    const {saveSearchCondition} = props;
 
-    const [queryCondition, setQueryCondition] = React.useState<User>({
-        type:'admin',
+    const [search, setSearch] = React.useState<User>({
+        type:'all',
     });
 
     /*原生React收集query条件*/
     const handleQueryCondition = (type: string) => {
         return (event: BaseSyntheticEvent | SelectChangeEvent) => {
-            setQueryCondition({
+            setSearch({
                 /*解构赋值原对象*/
-                ...queryCondition,
+                ...search,
                 [type]: event.target.value
             })
         }
@@ -47,7 +47,7 @@ export default function Search(props: SearchProps) {
                         labelId="simple-select-label"
                         id="simple-select"
                         label="Type"
-                        value={queryCondition.type}/*必须要加，不然会warning*/
+                        value={search.type}/*必须要加，不然会warning*/
                         onChange={handleQueryCondition('type')}
                     >
 
@@ -61,7 +61,7 @@ export default function Search(props: SearchProps) {
             </Box>
 
             <Stack marginTop={3} spacing={2} direction="row">
-                <Button variant="contained" onClick={callQueryApi}>Search</Button>
+                <Button variant="contained" onClick={saveSearchCondition(search)}>Search</Button>
                 <Button variant="contained">Reset</Button>
             </Stack>
         </Fragment>

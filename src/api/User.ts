@@ -14,3 +14,18 @@ export async function query(user: User) {
         console.log(error);
     }
 }
+
+export async function create(user: User) {
+    try {
+        const data = await axiosRequest.post('/user/create',
+            {
+                username: user.username,
+                type: user.type,
+            });
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
