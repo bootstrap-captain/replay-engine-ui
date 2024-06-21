@@ -20,7 +20,6 @@ export default function Delete(props: any) {
     };
 
     const handleDeleteUser = () => {
-
         props.setWriteOperation()
         setOpen(false);
     }
