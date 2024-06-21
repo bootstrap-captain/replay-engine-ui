@@ -9,15 +9,15 @@ import AddIcon from '@mui/icons-material/Add';
 import {create} from "../../api/User";
 
 interface CreateProps {
-    writeOperation: () => void;
+    searchByCondition: () => void;
 }
 
 export default function CreateUser(props: CreateProps) {
-    const {writeOperation} = props;
+    const {searchByCondition} = props;
 
     const [user, setUser] = React.useState<User>({
         username: '',
-        userid: '',
+        userId: '',
         type: ''
     });
 
@@ -32,12 +32,11 @@ export default function CreateUser(props: CreateProps) {
         }
     }
 
-
     const handleSubmit = () => {
         setOpen(false);
         create(user).then((value) => {
             console.log("response:",value);
-            writeOperation();
+            searchByCondition();
         })
     }
 

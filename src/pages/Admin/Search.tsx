@@ -2,19 +2,20 @@ import Box from "@mui/material/Box";
 import {FormControl, InputLabel, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
 import {User, user_type} from "./User";
 import MenuItem from "@mui/material/MenuItem";
-import React, {BaseSyntheticEvent, ChangeEvent, Fragment} from "react";
+import React, {BaseSyntheticEvent, Fragment} from "react";
 import Button from "@mui/material/Button";
 
 interface SearchProps {
-    saveSearchCondition: (searchCondition:User) => ()=>void;
+    saveSearchCondition: (searchCondition: User) => void;
+    searchByCondition: () => void;
 }
 
 export default function Search(props: SearchProps) {
 
-    const {saveSearchCondition} = props;
+    const {saveSearchCondition,searchByCondition} = props;
 
     const [search, setSearch] = React.useState<User>({
-        type:'all',
+        type: 'all',
     });
 
     /*原生React收集query条件*/
@@ -26,6 +27,13 @@ export default function Search(props: SearchProps) {
                 [type]: event.target.value
             })
         }
+    }
+
+    const handleSearch = () => {
+        /*保存search参数到admin中*/
+        saveSearchCondition(search);
+        /*发送请求查找数据*/
+        searchByCondition();
     }
 
     return (
@@ -61,7 +69,7 @@ export default function Search(props: SearchProps) {
             </Box>
 
             <Stack marginTop={3} spacing={2} direction="row">
-                <Button variant="contained" onClick={saveSearchCondition(search)}>Search</Button>
+                <Button variant="contained" onClick={handleSearch}>Search</Button>
                 <Button variant="contained">Reset</Button>
             </Stack>
         </Fragment>

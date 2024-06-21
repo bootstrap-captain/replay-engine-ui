@@ -14,13 +14,16 @@ import Edit from "./Edit";
 const tableHeader: string[] = ['SOEID', 'TYPE', 'OPERATIONS']
 
 interface DisplayProps {
-    data: [User],
-    setWriteOperation: Function
+    data: User[],
+    searchByCondition: () => void
 }
 
-export default function Display(props: any) {
+export default function Display(props: DisplayProps) {
 
-    const rows: [User] = props.data;
+    const rows: User[] = props.data;
+    const {searchByCondition} = props;
+
+    console.log('display', rows)
 
     return (
         <Box>
@@ -28,7 +31,7 @@ export default function Display(props: any) {
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     {/*表头*/}
                     <TableHead>
-                        <TableRow key={"12"}>
+                        <TableRow>
                             {tableHeader.map((item, index) => (
                                 <TableCell align='left' key={index}>
                                     {item}
@@ -39,9 +42,9 @@ export default function Display(props: any) {
 
                     {/*具体数据*/}
                     <TableBody>
-                        {rows.map((row) => (
+                        {rows.map((row, index) => (
                             <TableRow
-                                key={row.userid}
+                                key={index}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell align="left">{row.username}</TableCell>
@@ -49,9 +52,10 @@ export default function Display(props: any) {
                                 <TableCell align="left">
                                     <Stack spacing={3} direction="row">
                                         {/*编辑*/}
-                                        <Edit userId={row.userid} type={row.type} username={row.username}/>
+                                        <Edit userId={row.userId} type={row.type} username={row.username}
+                                              searchByCondition={searchByCondition}/>
                                         {/*删除*/}
-                                        <Delete userId={row.userid}/>
+                                        <Delete userId={row.userId} searchByCondition={searchByCondition}/>
                                     </Stack>
                                 </TableCell>
                             </TableRow>

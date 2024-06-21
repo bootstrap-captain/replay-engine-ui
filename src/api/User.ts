@@ -29,3 +29,30 @@ export async function create(user: User) {
     }
 }
 
+export async function deleteById(userId: string | undefined) {
+    try {
+        const data = await axiosRequest.get('/user/delete', {
+            params: {
+                userId: userId
+            }
+        });
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export async function update(user: User) {
+    try {
+        const data = await axiosRequest.post('/user/update', {
+            userId: user.userId,
+            type: user.type,
+        });
+
+        return data;
+    } catch (error) {
+        console.log(error);
+    }
+}
+

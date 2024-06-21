@@ -1,16 +1,24 @@
 import * as React from "react";
-import {Dialog, DialogActions, DialogTitle, FormControl, InputLabel, Select, SelectChangeEvent} from "@mui/material";
 import {Fragment} from "react";
+import {Dialog, DialogActions, DialogTitle, FormControl, InputLabel, Select, SelectChangeEvent} from "@mui/material";
 import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import {user_type} from "./User";
 import MenuItem from "@mui/material/MenuItem";
+import {update} from "../../api/User";
 
-export default function Edit(props: any) {
+interface EditProps {
+    userId: string | undefined,
+    username: string | undefined,
+    type: string | undefined,
+    searchByCondition: () => void
+}
 
-    const {userId, username} = props;
+export default function Edit(props: EditProps) {
+
+    const {userId, searchByCondition} = props;
 
     const [type, setType] = React.useState(props.type);
 
@@ -21,9 +29,14 @@ export default function Edit(props: any) {
     }
 
 
-    const handleSubmit = ()=>{
-        console.log(userId + username + type);
-        //  请求后端发送编辑
+    const handleSubmit = () => {
+        /*后台更新数据,删除成功后，再开始查询*/
+        update({userId: userId, type: type}).then((value) => {
+            console.log(value);
+            /*再次查询，更新数据*/
+            searchByCondition();
+            setOpen(false);
+        })
     }
 
     const handleClickOpen = () => {
@@ -71,7 +84,7 @@ export default function Edit(props: any) {
                             noValidate
                             autoComplete="off"
                         >
-                            <TextField defaultValue={username} disabled={true} id="outlined-basic" label="SOEID"
+                            <TextField defaultValue={'username'} disabled={true} id="outlined-basic" label="SOEID"
                                        variant="outlined"/>
                         </Box>
 

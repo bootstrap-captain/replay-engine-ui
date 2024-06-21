@@ -2,23 +2,21 @@ import React from "react";
 
 export default function Mall() {
     const [count, setCount] = React.useState(0);
+    const countRef = React.useRef<number>();
 
     function updateCount() {
-        setCount((previous) => {
-            return previous + 1;
-        })
+        let newNumber = 10;
+        setCount(10)
+        countRef.current = 10;
+        log();
     }
 
-    /*1. 页面第一次加载完毕后，调用一次
-    * 2. 后续监测的值发生改变，再调用一次*/
-    React.useEffect(() => {
-        console.log('count', count)
-    }, [count]);
-
-    console.log('mall')
+    /*假如调用完了上面的方法，立刻要使用到count的值，就可以用countRef*/
+    function log() {
+        console.log(countRef.current)
+    }
 
     return (
-
         <div>
             <h2>当前计数{count}</h2>
             <button onClick={updateCount}>改变计数器</button>
