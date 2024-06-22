@@ -17,12 +17,7 @@ export async function query(user: User) {
 
 export async function create(user: User) {
     try {
-        const data = await axiosRequest.post('/user/create',
-            {
-                username: user.username,
-                type: user.type,
-            });
-
+        const data = await axiosRequest.post('/user/create', user);
         return data;
     } catch (error) {
         console.log(error);

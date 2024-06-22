@@ -45,6 +45,7 @@ export default function Search(props: SearchProps) {
                 }}
                 noValidate
                 autoComplete="off"
+                marginTop={4}
             >
                 <TextField id="username-text" fullWidth label="SEOID" onChange={handleQueryCondition('username')}
                            variant="outlined"/>
