@@ -5,6 +5,7 @@ import Admin from "../pages/Admin/Admin";
 import Mall from "../pages/Mall/Mall";
 import PageOne from "../pages/Other/PageOne/PageOne";
 import PageTwo from "../pages/Other/PageTwo/PageTwo";
+import Customer from "../pages/Customer/Customer";
 
 /*路由表*/
 export const routers: RouteObject[] = [
@@ -32,6 +33,10 @@ export const routers: RouteObject[] = [
     {
         path: '/admin',
         element: <Admin/>,
+    },
+    {
+        path: '/customer',
+        element: <Customer/>,
     },
     {
         path: '/',

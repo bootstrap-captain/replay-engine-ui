@@ -12,7 +12,7 @@ interface SearchProps {
 
 export default function Search(props: SearchProps) {
 
-    const {saveSearchCondition,searchByCondition} = props;
+    const {saveSearchCondition, searchByCondition} = props;
 
     const [search, setSearch] = React.useState<User>({
         type: 'all',
@@ -56,10 +56,9 @@ export default function Search(props: SearchProps) {
                         labelId="simple-select-label"
                         id="simple-select"
                         label="Type"
-                        value={search.type}/*必须要加，不然会warning*/
+                        value={search.type}
                         onChange={handleQueryCondition('type')}
                     >
-
                         {user_type.map((item, index) => (
                             <MenuItem value={item} key={index}>
                                 {item.toUpperCase()}

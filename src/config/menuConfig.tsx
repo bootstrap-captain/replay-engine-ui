@@ -23,6 +23,13 @@ export const menus: RouterMenu[] = [
         url: 'admin',
     },
     {
+        path: '/customer',
+        name: 'customer',
+        label: 'Customer',
+        icon: 'customer',
+        url: 'customer',
+    },
+    {
         path: '/mall',
         name: 'mall',
         label: 'Mall',
