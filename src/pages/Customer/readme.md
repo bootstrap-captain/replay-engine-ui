@@ -1,15 +1,1 @@
-# 用户信息的CRUD
-
-## 1. 使用render
-- 姓名，年龄，性别，出生日期，地址，操作
-- id不可见
-
-
-## 2. 新增和修改复用： 用type，
-- sex处理逻辑，时间格式 dayjs依赖
-- dayjs().format('YYYY);
-- axios的data简写
-- 请求成功后：在then里面进行其他回调及关闭弹窗(表单数据重置)
-- 表单数据的回填
-
-## 3. 分页
+- 使用 flag&&component的方式，会导致component的频繁加载和卸载？

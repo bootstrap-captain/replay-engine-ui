@@ -1,6 +1,5 @@
 import Search from "./component/Search";
 import Display from "./component/Display";
-import Create from "./component/Create";
 import Delete from "./component/Delete";
 import Edit from "./component/Edit";
 import React from "react";
@@ -8,7 +7,7 @@ import {CustomerDisplay, CustomerSearchEntity, GenderType} from "./entity/Custom
 import dayjs from "dayjs";
 import {axiosRequest} from "../../utils";
 import {AxiosResponse} from "axios";
-import {log} from "node:util";
+import Create from "./component/Create";
 
 export default function Customer() {
     /*数据结果*/
@@ -52,7 +51,7 @@ export default function Customer() {
     return (
         <div>
             <Search queryCondition={queryCondition} queryByCondition={queryByCondition}/>
-            <Create/>
+            <Create queryByCondition={queryByCondition}/>
 
             {/*子组件直接需要用的数据*/}
             <Display dataTable={dataTable}
