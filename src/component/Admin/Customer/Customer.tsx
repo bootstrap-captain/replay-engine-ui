@@ -5,9 +5,10 @@ import Edit from "./component/Edit";
 import React from "react";
 import {CustomerDisplay, CustomerSearchEntity, GenderType} from "./entity/CustomerEntity";
 import dayjs from "dayjs";
-import {axiosRequest} from "../../utils";
+
 import {AxiosResponse} from "axios";
 import Create from "./component/Create";
+import {axiosRequest} from "../../../utils";
 
 export default function Customer() {
     /*数据结果*/

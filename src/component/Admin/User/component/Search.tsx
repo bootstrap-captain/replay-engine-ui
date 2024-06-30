@@ -1,12 +1,12 @@
 import Box from "@mui/material/Box";
 import {FormControl, InputLabel, Select, SelectChangeEvent, Stack, TextField} from "@mui/material";
-import {User, user_type} from "./User";
+import {UserEntity, user_type} from "../entity/UserEntity";
 import MenuItem from "@mui/material/MenuItem";
 import React, {BaseSyntheticEvent, Fragment} from "react";
 import Button from "@mui/material/Button";
 
 interface SearchProps {
-    saveSearchCondition: (searchCondition: User) => void;
+    saveSearchCondition: (searchCondition: UserEntity) => void;
     searchByCondition: () => void;
 }
 
@@ -14,7 +14,7 @@ export default function Search(props: SearchProps) {
 
     const {saveSearchCondition, searchByCondition} = props;
 
-    const [search, setSearch] = React.useState<User>({
+    const [search, setSearch] = React.useState<UserEntity>({
         type: 'all',
     });
 

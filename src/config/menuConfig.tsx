@@ -7,6 +7,10 @@ export interface RouterMenu {
     url: string,
 }
 
+export const userSetting = [
+    'Profile', 'Logout'
+]
+
 export const menus: RouterMenu[] = [
     {
         path: '/home',
@@ -16,23 +20,23 @@ export const menus: RouterMenu[] = [
         url: 'home',
     },
     {
-        path: '/admin',
+        path: '/UserPage',
         name: 'admin',
-        label: 'Admin',
+        label: 'User',
         icon: 'adf',
         url: 'admin',
     },
     {
         path: '/customer',
         name: 'customer',
-        label: 'Customer',
+        label: 'CustomerPage',
         icon: 'customer',
         url: 'customer',
     },
     {
         path: '/mall',
         name: 'mall',
-        label: 'Mall',
+        label: 'MallPage',
         icon: 'adf',
         url: 'mall',
     }

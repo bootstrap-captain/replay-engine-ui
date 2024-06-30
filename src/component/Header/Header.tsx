@@ -5,24 +5,26 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import {menus, RouterMenu} from "../../config/menuConfig";
-import {useNavigate} from "react-router-dom";
+import AppsIcon from '@mui/icons-material/Apps';
+import {stringAvatar} from "../../utils/iconColor";
+import {userSetting} from "../../config/menuConfig";
+import MenuIcon from '@mui/icons-material/Menu';
 
 const pages = ['Products', 'Pricing', 'Blog'];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-
-/*从后台获取*/
-const navMenu: RouterMenu[] = menus;
 
 export default function Header() {
+
+    const username = 'Erick Shu';
+
+    /*用来控制主菜单的*/
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+
+    /*控制用户界面的*/
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -40,25 +42,32 @@ export default function Header() {
         setAnchorElUser(null);
     };
 
-    let navigate = useNavigate();
-
-    /*点击菜单，跳转到指定的路由*/
-    const handleClickMenu = (path: string) => {
-        return () => {
-            navigate(path);
-        }
-    }
-
     return (
         <AppBar position="static">
             <Container maxWidth="xl">
                 <Toolbar disableGutters>
-
-                    {/*标题*/}
-                    <Typography>
+                    {/*1. 图案logo*/}
+                    <AppsIcon sx={{display: {xs: 'none', md: 'flex'}, mr: 1}}/>
+                    {/*2. app文字*/}
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        component="a"
+                        href="#app-bar-with-responsive-menu"
+                        sx={{
+                            mr: 2,
+                            display: {xs: 'none', md: 'flex'},
+                            fontFamily: 'monospace',
+                            fontWeight: 700,
+                            letterSpacing: '.3rem',
+                            color: 'inherit',
+                            textDecoration: 'none',
+                        }}
+                    >
                         Replay Engine Service
                     </Typography>
 
+                    {/*3. 菜单列表*/}
                     <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
                         <IconButton
                             size="large"
@@ -70,7 +79,6 @@ export default function Header() {
                         >
                             <MenuIcon/>
                         </IconButton>
-
                         <Menu
                             id="menu-appbar"
                             anchorEl={anchorElNav}
@@ -95,51 +103,35 @@ export default function Header() {
                                 </MenuItem>
                             ))}
                         </Menu>
-
                     </Box>
-                    <AdbIcon sx={{display: {xs: 'flex', md: 'none'}, mr: 1}}/>
-                    <Typography
-                        variant="h5"
-                        noWrap
-                        component="a"
-                        href="#app-bar-with-responsive-menu"
-                        sx={{
-                            mr: 2,
-                            display: {xs: 'flex', md: 'none'},
-                            flexGrow: 1,
-                            fontFamily: 'monospace',
-                            fontWeight: 700,
-                            letterSpacing: '.3rem',
-                            color: 'inherit',
-                            textDecoration: 'none',
-                        }}
-                    >
-                        LOGO
-                    </Typography>
 
-                    {/*菜单部分开始*/}
+
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {menus.map((menu) => (
+                        {pages.map((page) => (
                             <Button
-                                key={menu.label}
-                                onClick={handleClickMenu(menu.path)}
+                                key={page}
+                                onClick={handleCloseNavMenu}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {menu.label}
+                                {page}
                             </Button>
                         ))}
                     </Box>
-                    {/*菜单部分结束*/}
 
+
+                    {/*4. 用户setting*/}
                     <Box sx={{flexGrow: 0}}>
-                        <Tooltip title="Open settings">
+                        {/*Tooltip:用户移动到这里时，提示信息*/}
+                        <Tooltip title="Open Settings">
                             <IconButton onClick={handleOpenUserMenu} sx={{p: 0}}>
-                                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
+                                <Avatar {...stringAvatar(username)}></Avatar>
                             </IconButton>
                         </Tooltip>
+
                         <Menu
                             sx={{mt: '45px'}}
                             id="menu-appbar"
+                            /* 是否打开setting*/
                             anchorEl={anchorElUser}
                             anchorOrigin={{
                                 vertical: 'top',
@@ -153,7 +145,7 @@ export default function Header() {
                             open={Boolean(anchorElUser)}
                             onClose={handleCloseUserMenu}
                         >
-                            {settings.map((setting) => (
+                            {userSetting.map((setting) => (
                                 <MenuItem key={setting} onClick={handleCloseUserMenu}>
                                     <Typography textAlign="center">{setting}</Typography>
                                 </MenuItem>

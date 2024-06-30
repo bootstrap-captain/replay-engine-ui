@@ -1,4 +1,4 @@
-export interface User {
+export interface UserEntity {
     userId?: string,
     username?: string,
     type?: string,
@@ -8,7 +8,7 @@ export interface User {
 /*Type的类型*/
 export const user_type: string[] = [
     'all',
-    'admin',
+    'UserEntity',
     'maker',
     'checker',
     'maker_checker',

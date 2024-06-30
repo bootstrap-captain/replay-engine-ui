@@ -1,7 +1,7 @@
-import {User} from "../pages/Admin/User";
 import {axiosRequest} from "../utils";
+import {UserEntity} from "../component/Admin/User/entity/UserEntity";
 
-export async function query(user: User) {
+export async function query(user: UserEntity) {
     try {
         const data = await axiosRequest.post('/user/query',
             {
@@ -15,7 +15,7 @@ export async function query(user: User) {
     }
 }
 
-export async function create(user: User) {
+export async function create(user: UserEntity) {
     try {
         const data = await axiosRequest.post('/user/create', user);
         return data;
@@ -38,7 +38,7 @@ export async function deleteById(userId: string | undefined) {
     }
 }
 
-export async function update(user: User) {
+export async function update(user: UserEntity) {
     try {
         const data = await axiosRequest.post('/user/update', {
             userId: user.userId,

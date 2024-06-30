@@ -1,1 +1,0 @@
-- 使用 flag&&component的方式，会导致component的频繁加载和卸载？

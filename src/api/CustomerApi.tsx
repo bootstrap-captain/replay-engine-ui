@@ -1,6 +1,6 @@
 import {axiosRequest} from "../utils";
-import {CustomerDisplay, CustomerSearchEntity} from "../pages/Customer/entity/CustomerEntity";
 import {httpCall} from "../utils/axiosRequest";
+import {CustomerDisplay, CustomerSearchEntity} from "../component/Admin/Customer/entity/CustomerEntity";
 
 export function query(customerSearchEntity: CustomerSearchEntity) {
     try {

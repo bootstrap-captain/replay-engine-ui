@@ -5,7 +5,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import * as React from "react";
 import {CustomerDisplay, GenderType} from "../entity/CustomerEntity";
-import {createCustomer, updateCustomer} from "../../../api/CustomerApi";
+import {createCustomer, updateCustomer} from "../../../../api/CustomerApi";
+
 
 type CreateOrUpdateDialogProps = {
     queryByCondition: () => Promise<void>;

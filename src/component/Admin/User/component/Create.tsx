@@ -3,10 +3,10 @@ import {Dialog, DialogActions, DialogTitle, FormControl, InputLabel, Select} fro
 import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {User, user_type} from "./User";
+import {UserEntity, user_type} from "../entity/UserEntity";
 import MenuItem from "@mui/material/MenuItem";
 import AddIcon from '@mui/icons-material/Add';
-import {create} from "../../api/User";
+import {create} from "../../../../api/User";
 
 interface CreateProps {
     searchByCondition: () => void;
@@ -15,7 +15,7 @@ interface CreateProps {
 export default function CreateUser(props: CreateProps) {
     const {searchByCondition} = props;
 
-    const [user, setUser] = React.useState<User>({
+    const [user, setUser] = React.useState<UserEntity>({
         username: '',
         userId: '',
         type: ''
@@ -60,7 +60,7 @@ export default function CreateUser(props: CreateProps) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Edit User"}
+                    {"Edit UserPage"}
                 </DialogTitle>
                 <DialogActions>
 

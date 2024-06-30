@@ -1,17 +1,18 @@
-import * as React from "react";
-import {Fragment} from "react";
+import {CustomerDisplay} from "../entity/CustomerEntity";
+import React, {Fragment} from "react";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle} from "@mui/material";
-import {deleteById} from "../../api/User";
+import {AxiosResponse} from "axios";
+import {axiosRequest} from "../../../../utils";
 
-interface DeleteProps {
-    userId: string| undefined,
-    searchByCondition:()=>void
+type DeleteProps = {
+    queryByCondition: () => Promise<void>;
+    entity: CustomerDisplay,
 }
 
 export default function Delete(props: DeleteProps) {
-    const {userId, searchByCondition} = props;
+    const {entity, queryByCondition} = props;
 
     const [open, setOpen] = React.useState(false);
 
@@ -23,14 +24,16 @@ export default function Delete(props: DeleteProps) {
         setOpen(false);
     };
 
-    const handleDeleteUser = () => {
+    const handleDeleteCustomer = async () => {
         /*后台删除数据,删除成功后，再开始查询*/
-        deleteById(userId).then((value)=>{
-            console.log(value);
-            /*再次查询，更新数据*/
-            searchByCondition();
-            setOpen(false);
-        })
+        const response: AxiosResponse<any, any> = await axiosRequest.get('/customer/delete', {
+            params: {
+                customerId: entity.customerId
+            }
+        });
+
+        queryByCondition();
+        setOpen(false)
     }
 
 
@@ -51,13 +54,13 @@ export default function Delete(props: DeleteProps) {
                 </DialogTitle>
                 <DialogContent>
                     <DialogContentText id="alert-dialog-description">
-                        Are you sure you want to delete this user?
+                        Are you sure you want to delete this customer?
                     </DialogContentText>
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={handleClose}>No</Button>
 
-                    <Button onClick={handleDeleteUser} autoFocus>
+                    <Button onClick={handleDeleteCustomer} autoFocus>
                         Yes
                     </Button>
                 </DialogActions>

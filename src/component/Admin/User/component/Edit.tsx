@@ -5,9 +5,9 @@ import Button from "@mui/material/Button";
 import EditIcon from "@mui/icons-material/Edit";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
-import {user_type} from "./User";
+import {user_type} from "../entity/UserEntity";
 import MenuItem from "@mui/material/MenuItem";
-import {update} from "../../api/User";
+import {update} from "../../../../api/User";
 
 interface EditProps {
     userId: string | undefined,
@@ -59,7 +59,7 @@ export default function Edit(props: EditProps) {
                 aria-describedby="alert-dialog-description"
             >
                 <DialogTitle id="alert-dialog-title">
-                    {"Edit User"}
+                    {"Edit UserPage"}
                 </DialogTitle>
                 <DialogActions>
 

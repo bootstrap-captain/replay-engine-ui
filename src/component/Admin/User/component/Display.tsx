@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {User} from "./User";
+import {UserEntity} from "../entity/UserEntity";
 import {Box, Stack} from "@mui/material";
 import Delete from "./Delete";
 import Edit from "./Edit";
@@ -14,13 +14,13 @@ import Edit from "./Edit";
 const tableHeader: string[] = ['SOEID', 'TYPE', 'OPERATIONS']
 
 interface DisplayProps {
-    data: User[],
+    data: UserEntity[],
     searchByCondition: () => void
 }
 
 export default function Display(props: DisplayProps) {
 
-    const rows: User[] = props.data;
+    const rows: UserEntity[] = props.data;
     const {searchByCondition} = props;
 
     console.log('display', rows)
