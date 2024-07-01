@@ -14,12 +14,16 @@ import AppsIcon from '@mui/icons-material/Apps';
 import {stringAvatar} from "../../utils/iconColor";
 import {menus, userSetting} from "../../config/menuConfig";
 import {useNavigate} from 'react-router-dom';
+import {useAppSelector} from "../../redux/hooks";
 
 
 /*如何设置二级路由*/
 export default function Header() {
 
-    const username = 'Erick Shu';
+    /*从redux中读取用户名*/
+    const username = useAppSelector(state => {
+        return state.login.username;
+    });
 
     const navigate = useNavigate();
 
