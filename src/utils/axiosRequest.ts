@@ -28,13 +28,14 @@ axiosRequest.interceptors.response.use(function (response) {
 
 
 /*Post请求方法
-* T: 请求的范型*/
-export async function httpCall<T>(url: string, data: T) {
+* T: 请求的范型
+* R: 返回的类型*/
+export async function postHttpCall<T>(url: string, data: T) {
     /*data数据类型要和后端的一致*/
     try {
-        const response = await axiosRequest.post('/customer/create', data);
         /*上面已经进行了响应拦截，返回的已经是解析后的data数据了*/
-        console.log('httpCall:', response)
+        const response = await axiosRequest.post(url, data);
+        return response;
     } catch (error) {
         console.log(error);
     }

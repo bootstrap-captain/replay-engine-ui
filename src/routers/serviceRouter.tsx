@@ -4,12 +4,15 @@ import MallPage from "../pages/Mall/MallPage";
 import CustomerPage from "../pages/Admin/Customer/CustomerPage";
 import AdminPage from "../pages/Admin/AdminPage";
 import UserPage from "../pages/Admin/User/UserPage";
+import Login from "../component/Login/Login";
 
 export const router = createBrowserRouter(createRoutesFromElements(
     /*顶层路由*/
     <Route path='/' element={<MainPage/>}>
 
         <Route path='mall' element={<MallPage/>}></Route>
+
+        <Route path='login' element={<Login/>}></Route>
 
         {/*二级路由*/}
         <Route path='admin' element={<AdminPage/>}>

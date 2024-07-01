@@ -12,31 +12,33 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AppsIcon from '@mui/icons-material/Apps';
 import {stringAvatar} from "../../utils/iconColor";
-import {userSetting} from "../../config/menuConfig";
-import MenuIcon from '@mui/icons-material/Menu';
+import {menus, userSetting} from "../../config/menuConfig";
+import {useNavigate} from 'react-router-dom';
 
-const pages = ['Products', 'Pricing', 'Blog'];
 
+/*如何设置二级路由*/
 export default function Header() {
 
     const username = 'Erick Shu';
 
-    /*用来控制主菜单的*/
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const navigate = useNavigate();
 
     /*控制用户界面的*/
     const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
 
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-        setAnchorElNav(event.currentTarget);
-    };
     const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorElUser(event.currentTarget);
     };
 
-    const handleCloseNavMenu = () => {
-        setAnchorElNav(null);
-    };
+    const handleMenuClick = (path: string) => {
+        return () => {
+            console.log('path:', path)
+            navigate(path, {
+                replace: false,
+                state: {}
+            })
+        }
+    }
 
     const handleCloseUserMenu = () => {
         setAnchorElUser(null);
@@ -67,53 +69,15 @@ export default function Header() {
                         Replay Engine Service
                     </Typography>
 
-                    {/*3. 菜单列表*/}
-                    <Box sx={{flexGrow: 1, display: {xs: 'flex', md: 'none'}}}>
-                        <IconButton
-                            size="large"
-                            aria-label="account of current user"
-                            aria-controls="menu-appbar"
-                            aria-haspopup="true"
-                            onClick={handleOpenNavMenu}
-                            color="inherit"
-                        >
-                            <MenuIcon/>
-                        </IconButton>
-                        <Menu
-                            id="menu-appbar"
-                            anchorEl={anchorElNav}
-                            anchorOrigin={{
-                                vertical: 'bottom',
-                                horizontal: 'left',
-                            }}
-                            keepMounted
-                            transformOrigin={{
-                                vertical: 'top',
-                                horizontal: 'left',
-                            }}
-                            open={Boolean(anchorElNav)}
-                            onClose={handleCloseNavMenu}
-                            sx={{
-                                display: {xs: 'block', md: 'none'},
-                            }}
-                        >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
-                        </Menu>
-                    </Box>
-
-
+                    {/*3. 菜单列表,用几个Button表示*/}
                     <Box sx={{flexGrow: 1, display: {xs: 'none', md: 'flex'}}}>
-                        {pages.map((page) => (
+                        {menus.map((menu) => (
                             <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
+                                key={menu.name}
+                                onClick={handleMenuClick(menu.path)}
                                 sx={{my: 2, color: 'white', display: 'block'}}
                             >
-                                {page}
+                                {menu.name}
                             </Button>
                         ))}
                     </Box>

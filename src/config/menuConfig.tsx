@@ -13,31 +13,25 @@ export const userSetting = [
 
 export const menus: RouterMenu[] = [
     {
-        path: '/home',
-        name: 'home',
-        label: 'Home',
-        icon: 'erick',
-        url: 'home',
+        path: '/mall',
+        name: 'mall',
+        label: 'mall',
+        icon: 'mall',
+        url: 'mall',
     },
     {
-        path: '/UserPage',
-        name: 'admin',
-        label: 'User',
-        icon: 'adf',
-        url: 'admin',
+        path: '/admin/user',
+        name: 'user',
+        label: 'user',
+        icon: 'user',
+        url: 'user',
     },
     {
-        path: '/customer',
+        path: '/admin/customer',
         name: 'customer',
-        label: 'CustomerPage',
+        label: 'customer',
         icon: 'customer',
         url: 'customer',
     },
-    {
-        path: '/mall',
-        name: 'mall',
-        label: 'MallPage',
-        icon: 'adf',
-        url: 'mall',
-    }
+
 ]

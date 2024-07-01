@@ -1,5 +1,5 @@
 import {axiosRequest} from "../utils";
-import {httpCall} from "../utils/axiosRequest";
+import {postHttpCall} from "../utils/axiosRequest";
 import {CustomerDisplay, CustomerSearchEntity} from "../component/Admin/Customer/entity/CustomerEntity";
 
 export function query(customerSearchEntity: CustomerSearchEntity) {
@@ -17,7 +17,7 @@ export function query(customerSearchEntity: CustomerSearchEntity) {
 
 export async function queryCustomer(customerSearchEntity: CustomerSearchEntity) {
     try {
-        const data = await httpCall('/customer/query', customerSearchEntity);
+        const data = await postHttpCall('/customer/query', customerSearchEntity);
         console.log('query:', data)
     } catch (error) {
         console.log(error);
@@ -26,7 +26,7 @@ export async function queryCustomer(customerSearchEntity: CustomerSearchEntity) 
 
 export async function updateCustomer(customerDisplay: CustomerDisplay) {
     try {
-        const data = await httpCall('/customer/update', customerDisplay);
+        const data = await postHttpCall('/customer/update', customerDisplay);
         console.log('update:', data)
     } catch (error) {
         console.log(error);
@@ -35,7 +35,7 @@ export async function updateCustomer(customerDisplay: CustomerDisplay) {
 
 export async function createCustomer(customerDisplay: CustomerDisplay) {
     try {
-        const data = await httpCall('/customer/create', customerDisplay);
+        const data = await postHttpCall('/customer/create', customerDisplay);
         console.log('create:', data)
     } catch (error) {
         console.log(error);
