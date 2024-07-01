@@ -7,19 +7,24 @@ import UserPage from "../pages/Admin/User/UserPage";
 import Login from "../component/Login/Login";
 
 export const router = createBrowserRouter(createRoutesFromElements(
-    /*顶层路由*/
-    <Route path='/' element={<MainPage/>}>
+    <Route>
+        {/*主页面*/}
+        <Route path='/' element={<MainPage/>}>
 
-        <Route path='mall' element={<MallPage/>}></Route>
+            <Route path='mall' element={<MallPage/>}></Route>
 
-        <Route path='login' element={<Login/>}></Route>
 
-        {/*二级路由*/}
-        <Route path='admin' element={<AdminPage/>}>
-            {/*三级路由*/}
-            <Route path='user' element={<UserPage/>}></Route>
-            <Route path='customer' element={<CustomerPage/>}></Route>
+            {/*二级路由*/}
+            <Route path='admin' element={<AdminPage/>}>
+                {/*三级路由*/}
+                <Route path='user' element={<UserPage/>}></Route>
+                <Route path='customer' element={<CustomerPage/>}></Route>
+            </Route>
+
         </Route>
+
+        {/*登陆页面*/}
+        <Route path='/login' element={<Login/>}></Route>
 
     </Route>
 ));

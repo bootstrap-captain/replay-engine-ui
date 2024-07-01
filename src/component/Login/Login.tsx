@@ -1,5 +1,4 @@
-import * as React from "react";
-import {BaseSyntheticEvent} from "react";
+import React, {BaseSyntheticEvent} from "react";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import FormControl from "@mui/material/FormControl";
@@ -11,11 +10,10 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Button from "@mui/material/Button";
-import {NavigateFunction, useNavigate} from "react-router-dom";
-import {getLoginToken} from "../../api/LoginApi";
-import {useAppDispatch} from "../../redux/hooks";
-import {TOKEN_VAL} from "../constant/Constants";
+import {useAppDispatch, useAppSelector} from "../../redux/hooks";
 import {saveLoginUser} from "../../redux/reducers/loginSlice";
+import {Navigate, NavigateFunction, useNavigate} from "react-router-dom";
+import {getLoginToken} from "../../api/LoginApi";
 
 export type LoginRequest = {
     username: string,
@@ -31,16 +29,31 @@ export type LoginResponse = {
 
 export default function Login(props: any) {
 
-    /*1. 检查当前token状态，如果有，则跳转到main页面，不会导致重新刷新就继续需要登陆
-    * 2. 如果没有token，则进行下面的登陆步骤*/
-    let navigate: NavigateFunction = useNavigate;
-
-
+    /*state属性：尽可能放在最前面，不然可能发生
+    *  React Hook "React.useState" is called conditionally. React Hooks must be called in the exact same order in every component render */
     const [loginInfo, setLoginInfo] = React.useState<LoginRequest>({
         username: '',
         password: '',
     });
 
+    const [showPassword, setShowPassword] = React.useState(false);
+
+    const dispatch = useAppDispatch();
+
+    /*钩子的表示：代码旁边会有标识*/
+    const navigate: NavigateFunction = useNavigate();
+
+    let reduxToken = useAppSelector(state => {
+        return state.login.token;
+    });
+
+
+    /*1. 检查当前token状态，如果有，则跳转到main页面，不会导致重新刷新就继续需要登陆
+    * 2. 如果没有token，则进行下面的登陆步骤*/
+    if (reduxToken !== '') {
+        /*返回值必须是一个组件*/
+        return <Navigate to='/'/>
+    }
 
     const handleSaveLoginInfo = (key: string) => {
         return (event: BaseSyntheticEvent) => {
@@ -53,26 +66,26 @@ export default function Login(props: any) {
 
     /*验证用户登陆结果：成功则存储token，并跳转到welcome
     *                失败则重新跳转到login*/
-    const dispatch = useAppDispatch();
 
     async function validateUser() {
         const data = await getLoginToken(loginInfo);
         // @ts-ignore
-        const {username, password, token} = data;
-        if (token === '') {
-            navigate('', {
+        const {token} = data;
+
+        if (token === null) {
+            console.log('登陆失败');
+            navigate('/login', {
                 replace: false,
             })
         } else {
-            // 存入redux和localStorage中
-            localStorage.setItem(TOKEN_VAL, token);
             // @ts-ignore
             dispatch(saveLoginUser(data));
+            /*跳转到主页面*/
+            navigate('/');
         }
     }
 
 
-    const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
 
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {

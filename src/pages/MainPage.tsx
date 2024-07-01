@@ -8,10 +8,12 @@ import Footer from "../component/Footer/Footer";
 export default function MainPage() {
     return (
         <div>
-            <Header/>
+            {/*只有Auth验证通过，才会去渲染剩下的页面*/}
 
+            <Header/>
             <Outlet/>
             <Footer/>
+
         </div>
     );
 }

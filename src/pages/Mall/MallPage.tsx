@@ -1,10 +1,24 @@
 import React from "react";
+import {NavigateFunction, useNavigate} from "react-router-dom";
 
-export default function MallPage() {
+export default function MallPage(props:any) {
+
+    let navigate: NavigateFunction = useNavigate();
+
+    async function jump() {
+        let data = 1;
+        if (data === 1) {
+            navigate('/admin/user', {
+                replace: false,
+                state: {}
+            })
+        }
+    }
+
     return (
         <div>
-            <h1>我是Mall</h1>
-            {/*导入Mall的具体组件*/}
+            <button onClick={jump}>跳转到Cart</button>
+            <button onClick={jump}>跳转到Good</button>
         </div>
     );
 }
